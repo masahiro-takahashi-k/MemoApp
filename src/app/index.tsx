@@ -1,62 +1,44 @@
-import {View, Text, StyleSheet} from 'react-native'
+import {Redirect} from 'expo-router'
 
-const Index = (): JSX.Element => { //Indexページの定義
-    return (
-        <View style={styles.container}>
-            <View>
-                <View>
-                    <Text>Memo App</Text>
-                    <Text>ログアウト</Text>
-                </View>
-            </View>
-            <View>
-
-                <View>
-                    <View>
-                        <Text>買い物リスト</Text>
-                        <Text>2025年12月1日 10:00</Text>
-                    </View>
-                    <View>
-                        <Text>X</Text>
-                    </View>
-                </View>
-
-                <View>
-                    <View>
-                        <Text>買い物リスト</Text>
-                        <Text>2025年12月1日 10:00</Text>
-                    </View>
-                    <View>
-                        <Text>X</Text>
-                    </View>
-                </View>
-
-                <View>
-                    <View>
-                        <Text>買い物リスト</Text>
-                        <Text>2025年12月1日 10:00</Text>
-                    </View>
-                    <View>
-                        <Text>X</Text>
-                    </View>
-                </View>
-
-            </View>
-
-            <View>
-                <Text>＋</Text>
-            </View>
-
-        </View>
-    )
+const Index = (): JSX.Element  => {
+    // return <Redirect href='memo/list' />
+    // return <Redirect href='memo/edit' />
+    // return <Redirect href='memo/detail' />
+    // return <Redirect href='memo/create' />
+    return <Redirect href='auth/log_in' />
+    // return <Redirect href='auth/sign_up' />
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
-    }
-})
-
 export default Index
+
+
+// import {View,  StyleSheet} from 'react-native'
+
+// import Header from '../components/Header'
+// import MemoListItem from '../components/MemoListItem'
+// import CircleButton from '../components/CircleButton'
+
+// const Index = (): JSX.Element => { //Indexページの定義
+//     return (
+//         <View style={styles.container}>
+//             <Header />
+//             <View>
+//                 <MemoListItem />
+//                 <MemoListItem />
+//                 <MemoListItem />
+//             </View>
+//             <CircleButton>＋</CircleButton>
+//         </View>
+//     )
+// }
+
+// const styles = StyleSheet.create({
+//     container: {
+//         flex: 1,
+//         backgroundColor: '#ffffff'
+//         // justifyContent: 'center',
+//         // alignItems: 'center'
+//     }
+// })
+
+// export default Index
