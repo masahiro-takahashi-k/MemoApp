@@ -3,13 +3,26 @@ import {
 } from 'react-native'
 import { Link, router } from 'expo-router'
 import { useState } from 'react'
+import { createUserWithEmailAndPassword } from 'firebase/auth'
 
-import Header from '../../components/Header'
+// import Header from '../../components/Header'
+import {auth} from '../../config'
 import Button from '../../components/button'
 
-const handlePress = (): void => { //Submit押された時に実行。何も返さない。
+const handlePress = (email: string, password: string): void => { //Submit押された時に実行。何も返さない。
     //会員登録（後で実装）
-    router.push('/memo/list')
+    console.log(email, password)
+    createUserWithEmailAndPassword(auth, email, password) //Firebaseにユーザー登録する（Firebaseコンソールで確認できる）
+        .then((userCredential)=>{
+            console.log(userCredential.user.uid)
+            router.replace('/memo/list')
+        })
+        .catch((error)=>{
+            const {code, message} = error
+            // console.log(error)
+            console.log(code, message)
+            Alert.alert(message)
+        })
 }
 
 const SignUp = (): JSX.Element => { //Indexページの定義
@@ -43,10 +56,11 @@ const SignUp = (): JSX.Element => { //Indexページの定義
                 />
 
                 {/* <Button label='Submit' onPress={()=>{Alert.alert('Pressed!')}} /> */}
-                <Button label='Submit' onPress={handlePress} />
+                {/* <Button label='Submit' onPress={handlePress} /> */}
+                <Button label='Submit' onPress={()=>{handlePress(email, password)}} />
                 <View style={styles.fotter}>
                     <Text style={styles.footerText}>Already registered?</Text>
-                    <Link href='/auth/log_in' asChild>
+                    <Link href='/auth/log_in' asChild replace>
                         <TouchableOpacity>
                             <Text style={styles.footerLink}>Log in</Text>
                         </TouchableOpacity>

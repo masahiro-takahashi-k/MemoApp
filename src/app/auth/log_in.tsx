@@ -1,15 +1,27 @@
 import {
-    View,  Text, TextInput, StyleSheet, TouchableOpacity
+    View,  Text, TextInput, Alert,
+    StyleSheet, TouchableOpacity
 } from 'react-native'
 import { Link, router } from 'expo-router'
 import { useState } from 'react'
+import { signInWithEmailAndPassword } from 'firebase/auth'
 
-import Header from '../../components/Header'
+// import Header from '../../components/Header'
 import Button from '../../components/button'
+import {auth} from '../../config'
 
-const handlePress = (): void => { //Submit押された時に実行。何も返さない。
+const handlePress = (email: string, password: string): void => { //Submit押された時に実行。何も返さない。
     //ログイン（後で実装）
-    router.replace('/memo/list')
+    signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential)=>{
+            console.log(userCredential.user.uid)
+            router.replace('/memo/list')
+        })
+        .catch((error)=>{
+            const {code, message} = error
+            console.log(code, message)
+            Alert.alert(message)
+        })
 }
 
 const Login = (): JSX.Element => { //Indexページの定義
@@ -38,11 +50,11 @@ const Login = (): JSX.Element => { //Indexページの定義
                     placeholder='Password' //何も入力しない時に表示
                     textContentType='password'
                 />
-                <Button label='Submit' onPress={handlePress} />
+                <Button label='Submit' onPress={()=>{handlePress(email, password)}} />
                 <View style={styles.fotter}>
                     <Text style={styles.footerText}>Not registered?</Text>
                     {/* <Link href='/auth/sign_up'>Sign up here!!!</Link> */}
-                    <Link href='/auth/sign_up' asChild>
+                    <Link href='/auth/sign_up' asChild replace>
                         <TouchableOpacity>
                             <Text style={styles.footerLink}>Sign up here!</Text>
                         </TouchableOpacity>
